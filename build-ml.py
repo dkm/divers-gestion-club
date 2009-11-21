@@ -22,7 +22,7 @@ from optparse import OptionParser
 import csv
 import sys
 
-selectors = [u'Bureau', u'Grimpe', u'Parapentiste', u'Compétiteur parapente']
+selectors = ['Bureau', 'Grimpe', 'Parapentiste', 'Compétiteur parapente']
 
 parser = OptionParser()
 
@@ -39,8 +39,12 @@ if options.filename == None:
     print "Missing CSV file (--file)..."
     sys.exit(-1)
 
-if options.selection == None:
+if options.selection == None :
     print "I don't know what to select... (--select)"
+    sys.exit(-1)
+
+if options.selection not in selectors:
+    print "'" + options.selection + "' not a valid selector. Valid are : " + ", ".join(selectors)
     sys.exit(-1)
 
 file = csv.reader(open(options.filename,"r"), delimiter=',')
