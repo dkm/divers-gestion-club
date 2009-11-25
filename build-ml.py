@@ -33,6 +33,7 @@ parser.add_option("-s", "--select", dest="selection",
                   help="Column used for selection in " + str(selectors),
                   metavar="SELECT")
 
+
 (options, args) = parser.parse_args()
 
 if options.filename == None:
@@ -65,6 +66,7 @@ for row in file:
         continue
 
     if row[filter_idx] == '1':
-        result[row[mail_idx].strip()] = 1
+        for mail in row[mail_idx].strip().split(',):
+            result[mail.strip()] = 1
 
 print "\n".join(result.keys())
