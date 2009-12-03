@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr"
+lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="utils.js" type="text/javascript"></script>
+
+<title>Météo des Tire-Clous</title>
+
+<style type="text/css">
+table.balise {
+	border-width: thin thin thin thin;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: gray gray gray gray;
+	border-collapse: separate;
+	background-color: white;
+}
+table.balise th {
+	border-width: thin thin thin thin;
+	padding: 1px 1px 1px 1px;
+	border-style: dashed dashed dashed dashed;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 6px 6px 6px 6px;
+}
+table.balise td {
+	border-width: thin thin thin thin;
+	padding: 1px 1px 1px 1px;
+	border-style: dashed dashed dashed dashed;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 6px 6px 6px 6px;
+}
+</style>
+
+</head>
+
+<body>
+<div id="main">
+
+<div id="header">
+<div id="balises">
+</div>
+
+<div id="webcams">
+</div>
+
+</div> <!-- header -->
+
+<div id="histo_balise">
+</div>
+
+<div id="webcams_img">
+</div>
+
+</div> <!-- main -->
+
+
+
+<script type="text/javascript">
+  var total_b;
+  
+  total_b = gen_balises()
+
+  document.getElementById('histo_balise').innerHTML = total_b[0];
+  document.getElementById('balises').innerHTML = total_b[1];
+
+  var total_w;
+  total_w = gen_webcams();
+  
+  document.getElementById('webcams_img').innerHTML = total_w[0];
+  document.getElementById('webcams').innerHTML = total_w[1];
+</script>
+
+<div id="footer">
+  Everything is available on <a
+  href="http://github.com/dkm/divers-gestion-club">github</a> as freesoftware :)
+</div>
+</body>
+</html>
