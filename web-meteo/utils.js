@@ -22,23 +22,6 @@ var histo_vent="histo_vent.php";
 var histo_direc="histo_direction.php";
 var instant_speed_direct = "graph_vent.php";
 
-var histo_inter="1";
-var histo_marks="false";
-
-var webcam_height = "240px";
-
-var balises = new Array();
-
-balises["Moucherotte"] = "15";
-balises["Saint Hil"] = "61";
-balises["La Scia"] = "13";
-
-var webcams = new Array();
-webcams["Mallatrait(Allevard)"] = "http://pagesperso-orange.fr/lecollet.com/zzwebcam/image.jpg";
-webcams["Chamrousse (RB)"] = "http://www.meteo-chamrousse.com/roche.jpg";
-webcams["Grenoble INP (Bastille)"] = "http://webcam.minatec.grenoble-inp.fr/axis-cgi/jpg/image.cgi?resolution=640x480&text=1&textstring=Grenoble%20INP%20-%20Minatec%20-%20Vue%20sur%20la%20bastillle";
-webcams["Versoud (Saint Eynard)"] = "http://www.meteosite-38.fr/vue-webcam.jpg";
-
 
 function wind_speed_img(balise) {
   var str = url_graph_base + histo_vent + "?idBalise=" + balise + "&interval=" + histo_inter +
@@ -64,21 +47,52 @@ function balise_url(balise) {
 
 function gen_balises(){
   var total = "";
-  var total_head = "Les balises FFVL:" + window.innerWidth+ "<ul>";
+  var total_head = "Les balises FFVL:\n <ul>";
   var elt;
   var img_width = Math.min(Math.round(window.innerWidth / 3)-20, 350);
 
-  for (var b in balises) {
-    elt =       '<a name="balise-' + b + '"><table class="balise">\n';
-    elt = elt + ' <tr><th colspan="3">' + b + '  <a href="'+ balise_url(balises[b]) + '">[ffvl]</a>' + '</th></tr>\n';
-    elt = elt + ' <tr> <td><img src="' + wind_speed_img(balises[b]) + '" width="'+img_width +'" /> </td>\n';
-    elt = elt + '      <td><img src="' + wind_direc_img(balises[b]) + '" width="'+img_width +'" /> </td>\n';
-    elt = elt + '      <td><img src="' + wind_speed_direc(balises[b])+'" width="'+img_width +'" /> </td></tr>\n';
-    elt = elt + '</table></a>\n\n<br />\n';
-    total = total + elt;
+  balises.each(function(balise) {
+        elt = '<a name="balise-'     + balise.name + '" /><table class="balise">\n'
+          +    ' <tr><th colspan="3">'+ balise.name + '  <a href="'+ balise_url(balise.id) + '">[ffvl]</a>' + '</th></tr>\n'
+          +    ' <tr> <td>';
+        if (enable_lightbox) {
+          elt = elt + 
+            '   <a href="'  + wind_speed_img(balise.id) +'" rel="lightbox[balises]" title="' + balise.name +'">';
+        }
+        elt = elt
+          +    '   <img src="' + wind_speed_img(balise.id) + '" width="'+img_width +'" /> ';
+        if (enable_lightbox){
+          elt = elt + '   </a>'; 
+        }
+        elt = elt 
+          +    ' </td>\n'
+          +    ' <td>';
+        
+        if (enable_lightbox)
+          elt = elt 
+            +    '   <a href="'  + wind_direc_img(balise.id) +'" rel="lightbox[balises]" title="' + balise.name +'">';
+        elt = elt
+          +    '   <img src="' + wind_direc_img(balise.id) + '" width="'+img_width +'" />';
+
+        if (enable_lightbox)
+          elt = elt + '   </a>';
+        elt = elt
+          +    ' </td>\n'
+          +    ' <td>';
+        if (enable_lightbox)
+          elt = elt
+            +    '   <a href="'  + wind_speed_direc(balise.id) +'" rel="lightbox[balises]" title="' + balise.name +'">';
+        elt = elt
+          +    '   <img src="' + wind_speed_direc(balise.id)+'" width="'+img_width +'" />';
+        if (enable_lightbox)
+          elt = elt + '   </a>';
+        elt = elt
+          +    ' </td></tr>\n'
+          +    '</table>\n\n<br />\n';
+        total = total + elt;
   
-    total_head = total_head + '<li><a href="#balise-' + b + '">' + b + '</a>\n</li>';
-  }
+        total_head = total_head + '<li><a href="#balise-' + balise.name + '">' + balise.name + '</a>\n</li>';
+      });
 
   total_head = total_head + "</ul>";
   return [total, total_head];
@@ -90,15 +104,17 @@ function gen_webcams(){
   var total_head = "Les webcams: <ul>";
   var elt;
 
-  for (var w in webcams) {
-     elt = '<a name="webcam-' + w + '">\n' + 
+  webcams.each(function(webcam){
+     elt = '<a name="webcam-' + webcam.name + '">\n' + 
        '<table class="webcam">\n' + 
-       '<tr><th>' + w + '</th></tr>\n' +
-       '<tr><td><a href="' + webcams[w] + '"><img src="' + webcams[w] + '" alt="' + w + '" height="' + webcam_height +'"/></a></td></tr>\n' + 
+       '<tr><th>' + webcam.name + '</th></tr>\n' +
+       '<tr><td>'+
+       '<a href="' + webcam.url + '"><img src="' + webcam.url + '" alt="' + webcam.name + '" height="' + webcam_height +'"/></a></td></tr>\n' + 
        '</table>\n';
      total = total + elt;
-     total_head = total_head + '<li><a href="#webcam-' + w + '">' + w + '</a>\n</li>';
-  }
+     total_head = total_head + '<li><a href="#webcam-' + webcam.name + '">' + webcam.name + '</a>\n</li>';
+    });
+
   total_head = total_head + "</ul>";
   return [total, total_head];
 }
