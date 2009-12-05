@@ -22,7 +22,7 @@ from optparse import OptionParser
 import csv
 import sys
 
-selectors = ['Bureau', 'Grimpe', 'Parapentiste', 'Compétiteur parapente']
+selectors = ['Bureau', 'Grimpeur', 'Parapentiste', 'Compétiteur parapente']
 
 parser = OptionParser()
 
@@ -40,11 +40,11 @@ if options.filename == None:
     print "Missing CSV file (--file)..."
     sys.exit(-1)
 
-if options.selection == None :
-    print "I don't know what to select... (--select)"
-    sys.exit(-1)
+#if options.selection == None :
+#    print "I don't know what to select... (--select)"
+#    sys.exit(-1)
 
-if options.selection not in selectors:
+if options.selection not in selectors and options.selection != None:
     print "'" + options.selection + "' not a valid selector. Valid are : " + ", ".join(selectors)
     sys.exit(-1)
 
@@ -54,19 +54,20 @@ col_filter = options.selection
 
 start = True
 mail_idx = None
-filter_idx = None
+filter_idx = 0
 
 result = {}
 
 for row in file:
     if start:
         mail_idx = row.index('E-mail')
-        filter_idx = row.index(col_filter)
+        if col_filter != None:
+            filter_idx = row.index(col_filter)
         start = False
         continue
 
-    if row[filter_idx] == '1':
-        for mail in row[mail_idx].strip().split(',):
+    if col_filter == None or row[filter_idx] == '1':
+        for mail in row[mail_idx].strip().split(','):
             result[mail.strip()] = 1
 
 print "\n".join(result.keys())
