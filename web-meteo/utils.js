@@ -20,6 +20,7 @@ var url_graph_base = url_base + "graphs/";
 
 var histo_vent="histo_vent.php";
 var histo_direc="histo_direction.php";
+var instant_speed_direct = "graph_vent.php";
 
 var histo_inter="1";
 var histo_marks="false";
@@ -47,6 +48,11 @@ function wind_direc_img(balise) {
   return str;
 }
 
+function wind_speed_direc(balise){
+  var str = url_graph_base + instant_speed_direct + "?idBalise=" + balise;
+  return str;
+}
+
 function balise_url(balise) {
   var str = url_base + "balise.php?idBalise=" + balise;
   return str;
@@ -54,14 +60,16 @@ function balise_url(balise) {
 
 function gen_balises(){
   var total = "";
-  var total_head = "Les balises FFVL: <ul>";
+  var total_head = "Les balises FFVL:" + window.innerWidth+ "<ul>";
   var elt;
+  var img_width = Math.min(Math.round(window.innerWidth / 3)-20, 350);
 
   for (var b in balises) {
     elt =       '<a name="balise-' + b + '"><table class="balise">\n';
-    elt = elt + ' <tr><th colspan="2">' + b + '  <a href="'+ balise_url(balises[b]) + '">[fflv]</a>' + '</th></tr>\n';
-    elt = elt + ' <tr> <td><img src="' + wind_speed_img(balises[b]) + '"/> </td>\n';
-    elt = elt + '      <td><img src="' + wind_direc_img(balises[b]) + '"/> </td></tr>\n';
+    elt = elt + ' <tr><th colspan="3">' + b + '  <a href="'+ balise_url(balises[b]) + '">[ffvl]</a>' + '</th></tr>\n';
+    elt = elt + ' <tr> <td><img src="' + wind_speed_img(balises[b]) + '" width="'+img_width +'" /> </td>\n';
+    elt = elt + '      <td><img src="' + wind_direc_img(balises[b]) + '" width="'+img_width +'" /> </td>\n';
+    elt = elt + '      <td><img src="' + wind_speed_direc(balises[b])+'" width="'+img_width +'" /> </td></tr>\n';
     elt = elt + '</table></a>\n\n<br />\n';
     total = total + elt;
   
