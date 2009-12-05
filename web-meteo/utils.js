@@ -35,6 +35,10 @@ balises["La Scia"] = "13";
 
 var webcams = new Array();
 webcams["Mallatrait(Allevard)"] = "http://pagesperso-orange.fr/lecollet.com/zzwebcam/image.jpg";
+webcams["Chamrousse (RB)"] = "http://www.meteo-chamrousse.com/roche.jpg";
+webcams["Grenoble INP (Bastille)"] = "http://webcam.minatec.grenoble-inp.fr/axis-cgi/jpg/image.cgi?resolution=640x480&text=1&textstring=Grenoble%20INP%20-%20Minatec%20-%20Vue%20sur%20la%20bastillle";
+webcams["Versoud (Saint Eynard)"] = "http://www.meteosite-38.fr/vue-webcam.jpg";
+
 
 function wind_speed_img(balise) {
   var str = url_graph_base + histo_vent + "?idBalise=" + balise + "&interval=" + histo_inter +
