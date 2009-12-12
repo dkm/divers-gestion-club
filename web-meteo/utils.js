@@ -1,5 +1,5 @@
-//  agregation d'info météo
-//  Copyright (C) 2009  Marc Poulhiès
+//  agregation d'info mÃ©tÃ©o
+//  Copyright (C) 2009  Marc PoulhiÃ¨s
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
