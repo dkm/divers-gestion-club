@@ -118,3 +118,80 @@ function gen_webcams(){
   total_head = total_head + "</ul>";
   return [total, total_head];
 }
+
+function gen_img(url, group, width){
+  elt = "";
+
+  if (enable_lightbox){
+    elt = elt
+      +    '   <a href="'  + url +'" rel="lightbox';
+    if (group != "")
+      elt = elt + '[' + group + ']"';
+    elt = elt + '>';
+  }
+  elt = elt
+    +    '   <img src="' + url + '" width="'+ width +'" />';
+
+  if (enable_lightbox)
+    elt = elt + '   </a>';
+
+  return elt;
+}
+
+
+// function gen_sondages(){
+//   var total="";
+//   var img_width = Math.min(Math.round(window.innerWidth / 3)-20, 350);
+
+//   sondage_imgs.each(function(elt){
+//       total = total + "\n" + gen_img(elt.url, "sondage", img_width);
+//     });
+//   return total;
+// }
+
+// http://www.meteociel.fr/modeles/sondagegfs/sondagegfs_539_474_3_1.png
+// http://www.meteociel.fr/modeles/sondagegfs/sondagegfs_539_474_3_1.png
+
+// looks like we use 539, 474, 1 and 3 for Grenoble...
+function meteociel_get_gfs_ajax(x1,y1,map,ech, html_div){
+  var mc_base_url = "http://www.meteociel.fr/modeles/sondage2.php";
+  var mc_img = "http://www.meteociel.fr/modeles/sondagegfs/sondagegfs_"+x1+"_" + y1 + "_" + ech + "_" + map + ".png";
+
+  var img_width = Math.min(Math.round(window.innerWidth / 3)-20, 350);
+
+  params = { 
+    'archive': '0',
+    'ech':ech,
+    'map': map,
+    'x1': x1,
+    'y1':y1
+  };
+
+  new Ajax.Request( mc_base_url, {
+    method: 'get',
+	parameters: params,
+	onSuccess: function(response){
+	html_div.innerHTML=gen_img(mc_img, "sondage", img_width);
+      },
+	onFailure: function(response){
+	html_div.innerHTML="<p>Erreur de comm avec Meteociel...</p>";
+      }
+	});
+}
+
+function meteociel_get_gfs_object(x1, y1, map, ech, html_div){
+  var total = "";
+  var sondage_url = "http://www.meteociel.fr/modeles/sondage2.php";
+
+  total = '<object type="text/html"' +
+    'data="'+sondage_url + '?archive=0&ech='
+    + ech + '&map='
+    + map + '&x1='
+    + x1 + '&y1=' + y1 + '"' +
+    '       width="650"' +
+    '       height= "700">' +
+    '<p><a href="'+ sondage_url +'"></a></p>' +
+    '</object>';
+
+  html_div.innerHTML=total;
+}
