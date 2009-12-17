@@ -188,8 +188,8 @@ function meteociel_get_gfs_object(x1, y1, map, ech, html_div){
     + ech + '&map='
     + map + '&x1='
     + x1 + '&y1=' + y1 + '"' +
-    '       width="650"' +
-    '       height= "700">' +
+    '       width="'+ meteociel_width +'"' +
+    '       height= "' + meteociel_height + '">' +
     '<p><a href="'+ sondage_url +'"></a></p>' +
     '</object>';
 

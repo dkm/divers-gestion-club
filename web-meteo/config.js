@@ -15,13 +15,21 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
+/*
+ * FFVL "balises météo"
+ * Give a name (free form string) and its id.
+ */
 var balises = [
                { name: "Moucherotte", id:"15"},
                { name: "Saint Hil",   id: "61"},
                { name: "La Scia", id: "13"}
                ];
 
+/*
+ * Webcams.
+ * Give a name (free form string) and a directed URL
+ * to an image.
+ */
 var webcams = [
                { name: "Mallatrait(Allevard)", 
                  url:"http://pagesperso-orange.fr/lecollet.com/zzwebcam/image.jpg"},
@@ -36,13 +44,43 @@ var webcams = [
                  url: "http://www.meteosite-38.fr/vue-webcam.jpg"}
                ];
 
+/*
+ * Meteociel config
+ */
 
-// enable/disable stuff
+/*
+ * 2 ways of including meteociel GFS data.
+ * Set meteociel_get_gfs to either:
+ * - meteociel_get_gfs_object: to include an <object /> including the
+ *   web page
+ * - meteociel_get_gfs_ajax: to include a more 'ajaxian'
+ *   version. Currently, this solution provides less infos.
+ */
+meteociel_get_gfs = meteociel_get_gfs_object;
+/*
+ * width and size. When using the object method above
+ * this can result in horiz/vert scrolling bars (ugly).
+ */
+meteociel_width=650;
+meteociel_height=700;
+
+/*
+ * enable/disable stuff
+ *
+ * Whenever possible, lightbox is used to display higher resolution for pictures.
+ * Related images are grouped.
+ */
 var enable_lightbox = true;
 
-// some internals
+/*
+ * Controls the displaying of wind info from FFVL "balises météo".
+ */
 var histo_inter="1";
 var histo_marks="false";
 
+/*
+ * Height used for resizing webcam images.
+ * All images are resized.
+ */
 var webcam_height = "240px";
 
