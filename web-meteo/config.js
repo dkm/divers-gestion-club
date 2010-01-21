@@ -15,6 +15,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+// largement inspiré par http://www.toulouseparapente.fr/meteo-parapente-pyrenees.php
+
 /*
  * FFVL "balises météo"
  * Give a name (free form string) and its id.
@@ -43,6 +45,16 @@ var webcams = [
                { name: "Versoud (Saint Eynard)", 
                  url: "http://www.meteosite-38.fr/vue-webcam.jpg"}
                ];
+
+
+/*
+ *
+ */
+var sat_img = [
+	       { name: "Image globale de la France",
+		 url: "http://www.meteo.fr/temps/europe/satellite/bigsateuj.jpg",
+		 ref: "http://www.meteo.fr"}
+	       ];
 
 /*
  * Meteociel config
