@@ -195,3 +195,32 @@ function meteociel_get_gfs_object(x1, y1, map, ech, html_div){
 
   html_div.innerHTML=total;
 }
+
+
+/*
+ * Images satelites.
+ */
+
+function get_satimg(){
+  var total = "";
+  var total_head = "Les images satelites: <ul>";
+
+
+  sat_imgs.each(function(satimg){
+      img = new Image();
+      img.src = satimg.url;
+      elt = '<a name="satimg-' + satimg.name + '"></a>\n' + 
+        '<table class="satimg">\n' + 
+        '<tr><th>' + satimg.name + '</th></tr>\n' +
+        '<tr><td>'+
+        gen_img(satimg.url, "satimg", img.width) + 
+        '</td></tr>\n' + 
+        '</table>\n';
+      total = total + elt;
+      total_head = total_head + '<li><a href="#satimg-' + satimg.name + '">' + satimg.name + '</a>\n</li>';
+    });
+
+  total_head = total_head + "</ul>\n";
+
+  return [elt, total_head];
+}

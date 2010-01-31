@@ -51,11 +51,14 @@ table.balise td {
 <div id="main">
 
 <div id="header">
+  
 <div id="balises">
 </div>
 
 <div id="webcams">
 </div>
+
+<div id="satimgs_head"></div>
 
 </div> <!-- header -->
 
@@ -68,6 +71,9 @@ table.balise td {
 <div id="sondages">
 </div>
 
+<div id="satimgs">
+</div>
+  
 </div> <!-- main -->
 
 
@@ -87,6 +93,11 @@ table.balise td {
   document.getElementById('webcams').innerHTML = total_w[1];
 
   meteociel_get_gfs(539,474,1,3, document.getElementById('sondages'));
+
+  satimgs = get_satimg();
+
+  document.getElementById('satimgs').innerHTML =  satimgs[0];
+  document.getElementById('satimgs_head').innerHTML = satimgs[1];
 </script>
 
 <div id="footer">

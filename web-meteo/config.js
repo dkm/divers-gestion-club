@@ -50,11 +50,11 @@ var webcams = [
 /*
  *
  */
-var sat_img = [
-	       { name: "Image globale de la France",
-		 url: "http://www.meteo.fr/temps/europe/satellite/bigsateuj.jpg",
-		 ref: "http://www.meteo.fr"}
-	       ];
+var sat_imgs = [
+                { name: "Image globale de la France",
+                  url: "http://www.meteo.fr/temps/europe/satellite/bigsateuj.jpg",
+                  ref: "http://www.meteo.fr"}
+                ];
 
 /*
  * Meteociel config
