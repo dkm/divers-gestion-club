@@ -1,5 +1,5 @@
-//  agregation d'info météo
-//  Copyright (C) 2009  Marc Poulhiès
+//  agregation d'info mÃ©tÃ©o
+//  Copyright (C) 2009  Marc PoulhiÃ¨s
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -15,10 +15,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-// largement inspir� par http://www.toulouseparapente.fr/meteo-parapente-pyrenees.php
+// largement inspiré par http://www.toulouseparapente.fr/meteo-parapente-pyrenees.php
 
 /*
- * FFVL "balises m�t�o"
+ * FFVL "balises météo"
  * Give a name (free form string) and its id.
  */
 var balises = [
@@ -43,7 +43,10 @@ var webcams = [
                  url: "http://webcam.minatec.grenoble-inp.fr/axis-cgi/jpg/image.cgi?resolution=640x480&text=1&textstring=Grenoble%20INP%20-%20Minatec%20-%20Vue%20sur%20la%20bastillle"},
 
                { name: "Versoud (Saint Eynard)", 
-                 url: "http://www.meteosite-38.fr/vue-webcam.jpg"}
+                 url: "http://www.meteosite.fr/vue-webcam.jpg?width=350&height=300"},
+
+               // { name: "Webcam Prévol (Saint Hilaire déco Nord)",
+               //   url: prevol_get_webcam()}
                ];
 
 
@@ -53,13 +56,16 @@ var webcams = [
 var sat_imgs = [
                 { name: "Image globale de la France",
                   url: "http://www.meteo.fr/temps/europe/satellite/bigsateuj.jpg",
-                  ref: "http://www.meteo.fr"}
+                  forcewidth: "768",
+                  ref: "http://www.meteo.fr"},
+                { name: "Operational Weather Squadron",
+                  url: "http://ows.public.sembach.af.mil/gifImages/21OWS_EUROPE_ANALYSIS_METSAT_00_SFC_METSAT-ANALYSIS-7.gif",
+                  ref: "http://ows.public.sembach.af.mil/"}
                 ];
 
 /*
  * Meteociel config
  */
-
 /*
  * 2 ways of including meteociel GFS data.
  * Set meteociel_get_gfs to either:
@@ -85,7 +91,7 @@ meteociel_height=700;
 var enable_lightbox = true;
 
 /*
- * Controls the displaying of wind info from FFVL "balises m�t�o".
+ * Controls the displaying of wind info from FFVL "balises météo".
  */
 var histo_inter="1";
 var histo_marks="false";
