@@ -60,7 +60,11 @@ var sat_imgs = [
                   ref: "http://www.meteo.fr"},
                 { name: "Operational Weather Squadron",
                   url: "http://ows.public.sembach.af.mil/gifImages/21OWS_EUROPE_ANALYSIS_METSAT_00_SFC_METSAT-ANALYSIS-7.gif",
-                  ref: "http://ows.public.sembach.af.mil/"}
+                  ref: "http://ows.public.sembach.af.mil/"},
+		{ name: "Balises météo paravalanche Saint Hilaire",
+		  url : "http://www.meteo.fr/temps/france/nivose/pics/STHILS.gif",
+		  ref : "http://www.meteo.fr",
+		}
                 ];
 
 /*
