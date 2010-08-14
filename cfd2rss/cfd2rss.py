@@ -10,6 +10,9 @@ import PyRSS2Gen
 CLUB="Les Tire-Clous du Grand Mantis"
 CLUB_URL="http://www.tire-clous.fr"
 
+infile=sys.argv[1]
+outfile=sys.argv[2]
+
 class Vol:
     def __init__(self, pilote, date, vtype, deco, aterro, distance):
         self.pilote = pilote
@@ -23,31 +26,32 @@ class Vol:
 
     def toRSSItem(self):
         return PyRSS2Gen.RSSItem(
-            title = "{0} {1}km {2}".format(self.date.strftime("%d/%m/%y"), self.distance, self.pilote),
+            title = "%s %skm %s" %(self.date.strftime("%d/%m/%y"), self.distance, self.pilote),
             link = self.link,
             description = str(self),
             guid = PyRSS2Gen.Guid(self.link),
             pubDate = self.date)
     
     def __repr__(self):
-        s = """Vol de {0}, le {1}.
- - distance : {7}
- - deco: {2} / aterro: {3}
- - balises: {4}
- - type: {5}
- - link: {6}
-""".format(self.pilote, self.date, self.deco, self.aterro, self.balises, self.vtype, self.link, self.distance)
+        s = """Vol de %s, le %s.
+ - distance : %s
+ - deco: %s / aterro: %s
+ - balises: %s
+ - type: %s
+ - link: %s
+""" %(self.pilote, self.date, self.distance, self.deco, self.aterro, self.balises, self.vtype, self.link)
         return s
 
 balises_re=re.compile('href="(?P<gpshref>.*)">gps.*balises : (?P<balises>.*)</font></i></td>')
 info_vol_re=re.compile('tous les vols du (?P<date>[^"]*)">.*</a></td><td><a href="(?=/pilote)(?P<pilotehref>[^"]*)">(?P<pilote>[^<]*)</a>.*type">(?P<type>[^<]*).*<td>(?P<deco>.*)</td><td>(?P<aterro>.*)</td><td align="right">(?P<distance>[^<]*)</td>')
 
-fin = open(sys.argv[1])
+fin = open(infile)
 
 all_vols=[]
 cvol = None
 
 for l in fin.xreadlines():
+    l=l.decode('utf-8').encode("ascii", 'xmlcharrefreplace')
     m = info_vol_re.search(l)
     if m :
         cvol = Vol(m.group('pilote'), 
@@ -67,15 +71,15 @@ for l in fin.xreadlines():
 
 
 rss = PyRSS2Gen.RSS2(
-    title = "Vols CFD du club {0}".format(CLUB),
+    title = "Vols CFD du club %s" %(CLUB),
     link = CLUB_URL,
-    description = "Les derniers vols déclarés à la CFD par le club {0}".format(CLUB),
+    description = "Les derniers vols déclarés à la CFD par le club %s".decode('utf-8').encode("ascii", 'xmlcharrefreplace') %(CLUB),
 
     lastBuildDate = datetime.datetime.now(),
 
     items = [x.toRSSItem() for x in all_vols])
 
-rss.write_xml(open("pyrss2gen.xml", "w"))
+rss.write_xml(open(outfile, "w"))
 
 
 
