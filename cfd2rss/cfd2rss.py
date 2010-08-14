@@ -23,7 +23,7 @@ class Vol:
 
     def toRSSItem(self):
         return PyRSS2Gen.RSSItem(
-            title = "Vol de {0}km par {1}".format(self.distance, self.pilote),
+            title = "{0} {1}km {2}".format(self.date.strftime("%d/%m/%y"), self.distance, self.pilote),
             link = self.link,
             description = str(self),
             guid = PyRSS2Gen.Guid(self.link),
